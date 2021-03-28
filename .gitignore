@@ -1,4 +1,5 @@
-eventor/eventor
+__pycache__
+accounts
 eventor/eventor_app/__pycache__
 eventor/eventor_app/migrations
 eventor/eventor_app/__init__.py
@@ -7,3 +8,7 @@ Scripts
 pyvenv.cfg
 db.sqlite3
 manage.py
+asgi.py
+settings.py
+urls.py
+wsgi.py
