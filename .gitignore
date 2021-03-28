@@ -1,0 +1,9 @@
+eventor/eventor
+eventor/eventor_app/__pycache__
+eventor/eventor_app/migrations
+eventor/eventor_app/__init__.py
+Lib
+Scripts
+pyvenv.cfg
+db.sqlite3
+manage.py
