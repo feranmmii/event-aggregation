@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static%}
+
+
+{% block content%}
+    <header class="hme-header container-fluid">
+            <div class="col-md-6 head-call-to-act">
+                <h1>
+                    Dive in! There are so many things to do on Eventor
+                </h1>
+                <button class="btn">View events near you</button>
+            </div>
+            <div class="col-md-6 head-img">
+                <img src="{% static 'images/girl.png' %}" alt="">
+            </div>
+    </header>
+
+    <section class="events-listings">
+        <div class="container">
+            <hr>
+            {% for event in events %}
+                <div class="events-list">
+                    <div class="event-img">
+                        {% if event.imageUrl != '' %}
+                            <img src="{{event.imageUrl}}" alt="event image">
+                        {% else %}
+                            <img src="{% static 'images/placeholder.png' %}" alt="event image">
+                        {% endif %}
+                    </div>
+                    <div class="event-info">
+                        <a href="http://">
+                            <h4>{{event.eventName}}</h4>
+                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam....</p>
+                            <p><span>{{event.startDate}}</span> | <span>13 attendees</span></p>
+                        </a>
+                        <button class="btn-success attend-btn">Attend event</button>
+                    </div>
+                </div>
+                <hr>
+            {% endfor %}
+
+            <!-- <div class="events-list">
+                <div class="event-img">
+                    <img src="{% static 'images/placeholder.png' %}" alt="event image">
+                </div>
+                <div class="event-info">
+                    <h4>Javascript Meetup</h4>
+                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam....</p>
+                    <p><span>12-05-2020</span> | <span>13 attendees</span></p>
+                    <button class="btn-success attend-btn">Attend event</button>
+                </div>
+            </div>
+            <hr>
+
+            <div class="events-list">
+                <div class="event-img">
+                    <img src="{% static 'images/placeholder.png' %}" alt="event image">
+                </div>
+                <div class="event-info">
+                    <h4>Javascript Meetup</h4>
+                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam....</p>
+                    <p><span>12-05-2020</span> | <span>13 attendees</span></p>
+                    <button class="btn-success attend-btn">Attend event</button>
+                </div>
+            </div>
+            <hr>
+
+            <div class="events-list">
+                <div class="event-img">
+                    <img src="{% static 'images/placeholder.png' %}" alt="event image">
+                </div>
+                <div class="event-info">
+                    <h4>Javascript Meetup</h4>
+                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam....</p>
+                    <p><span>12-05-2020</span> | <span>13 attendees</span></p>
+                    <button class="btn-success attend-btn">Attend event</button>
+                </div>
+            </div>
+            <hr>
+ -->
+            
+        </div>
+    </section>
+{% endblock %}
+

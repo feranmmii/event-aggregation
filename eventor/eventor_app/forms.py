@@ -1,0 +1,2 @@
+class CreateEventForm():
+    pass   

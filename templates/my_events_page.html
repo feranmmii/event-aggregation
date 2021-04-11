@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static%}
+
+{% block content %}
+  <div class="events-body">
+    <nav class="side-nav">
+     
+      <ul>
+        <li id="book_event_menue">Booked event <hr></li>
+        <li id="created_event_menue">Created event <hr></li>
+        <li id="create_event_menue">Create an event <hr></li>
+      </ul>
+    </nav>
+    
+    <div class="content">
+      <div class="user-header">
+        <h2 class="section-title">
+          My Booked Events
+        </h2>
+      </div>
+      <div class="filter-events">
+        <select class="custom-select" name="events" id="select-group">
+          <option selected = 'selected'>Filter events</option>
+          <option value="today">Today</option>
+          <option value="future events">Future events</option>
+          <option value="past events">Past events</option>
+        </select>
+      </div>
+        <div class="hidden" id="booked-events">
+
+          <div class="events-list">
+            <div class="event-img">
+                <img src="{% static 'images/placeholder.png' %}" alt="event image">
+            </div>
+            <div class="event-info">
+                <a href="http://">
+                  <h4>Javascript Meetup</h4>
+                  <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam....</p>
+                </a>
+                <p><span>12-05-2020</span> | <span>13 attendees</span></p>
+                <button class="btn-danger attend-btn">Cancel event</button>
+            </div>
+          </div>
+        <hr>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

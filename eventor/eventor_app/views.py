@@ -1,9 +1,11 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from . import models
+from . import forms
 
 # Create your views here.
 def home_page_view(request):
-    context = {}
+    events = models.Events.objects.all()
+    context = {'events':events}
     return render (request, 'index.html', context)
 
 def event_page_view(request):
@@ -15,7 +17,12 @@ def search_event_page(request):
     return render(request, 'search_event_page.html', context)
 
 def my_events_page_view(request):
-    context = {}
+    currentUser = request.user
+    bookedEvents = models.BookedEvent.objects.filter(user=currentUser)
+    createdEvents = models.Events.objects.filter(organizer=currentUser)
+    createEventForm = forms.CreateEventForm
+            
+    context = {'bookedEvents':bookedEvents, 'createdEvents':createdEvents, 'ccreateEventForm':createEventForm}
     return render(request, 'my_events_page.html', context)
 
 def create_event_page_view(request):
@@ -25,12 +32,3 @@ def create_event_page_view(request):
 def edit_event_page_view(request):
     context = {}
     return render (request, 'edit_event_page.html', context)
-
-def login_signup_page_view(request):
-    context = {}
-    return render(request, 'login_signup_page.html', context)
-
-def forgot_password_page_view(request):
-    context = {}
-    return render(request, 'forgot_password.html', context)
-
