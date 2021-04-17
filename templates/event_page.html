@@ -6,26 +6,27 @@
     <section>
         <div class="container">
             <div class="head-content">
-                <div class="image">
-                    <img src="{% static 'images/placeholder.png' %}" alt="placeholder">
+                <div class="detail-images">
+                    {% if event.imageUrl != '' %}
+                            <img src="{{event.imageUrl}}" alt="event image">
+                        {% else %}
+                            <img src="{% static 'images/placeholder.png' %}" alt="event image">
+                    {% endif %}
                 </div>
 
                 <div class="head-info">
                     <p>
                         <span class="material-icons-outlined">
-                        schedule
+                        Schedule:
                         </span>
-                        Sunday, March 28, 2021 <br>
-                        5:45 PM to 7:45 PM
+                        <p><span>{{event.startDate}}</span> <!-- | <span>13 attendees</span></p> -->
                     </p>
 
                     <p>
                         <span class="material-icons-outlined">
-                            place
+                            Place:
                             </span>
-                            Etelaesplanadi 43 <br>
-                            Loviisa, Uusimaa, <br>
-                            Finland.
+                            {{event.address}}
                     </p>
                     <button class="btn-success attend-btn">Attend event</button>
                 </div>
@@ -33,20 +34,7 @@
 
             <div class="event-description">
                 <p>
-                    Neque a est quis eum. Quia id aut sit qui tenetur delectus vero. Vel deleniti maxime enim labore distinctio sunt et.
-
-                    Temporibus architecto incidunt quos nostrum quo porro. Veritatis quod praesentium et. Ullam eos quia vel cum hic. Voluptatem enim est molestias.
-
-                    Itaque nihil maxime reprehenderit dolores placeat rerum. Nisi saepe voluptatem amet id quo. Sint iste quo consequatur iste veniam. Aut error ipsam dolorum et incidunt. Autem vitae expedita vitae voluptas numquam doloribus quis voluptas. Voluptatem possimus ut nihil tempore.
-                    Neque a est quis eum. Quia id aut sit qui tenetur delectus vero. Vel deleniti maxime enim labore distinctio sunt et.
-
-                    Temporibus architecto incidunt quos nostrum quo porro. Veritatis quod praesentium et. Ullam eos quia vel cum hic. Voluptatem enim est molestias.
-
-                    Itaque nihil maxime reprehenderit dolores placeat rerum. Nisi saepe voluptatem amet id quo. Sint iste quo consequatur iste veniam. Aut error ipsam dolorum et incidunt. Autem vitae expedita vitae voluptas numquam doloribus quis voluptas. Voluptatem possimus ut nihil tempore.Neque a est quis eum. Quia id aut sit qui tenetur delectus vero. Vel deleniti maxime enim labore distinctio sunt et.
-
-                    Temporibus architecto incidunt quos nostrum quo porro. Veritatis quod praesentium et. Ullam eos quia vel cum hic. Voluptatem enim est molestias.
-
-                    Itaque nihil maxime reprehenderit dolores placeat rerum. Nisi saepe voluptatem amet id quo. Sint iste quo consequatur iste veniam. Aut error ipsam dolorum et incidunt. Autem vitae expedita vitae voluptas numquam doloribus quis voluptas. Voluptatem possimus ut nihil tempore.
+                     {{event.eventDescription}}
                 </p>
             </div>
 

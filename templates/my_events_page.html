@@ -6,42 +6,83 @@
     <nav class="side-nav">
      
       <ul>
-        <li id="book_event_menue">Booked event <hr></li>
-        <li id="created_event_menue">Created event <hr></li>
-        <li id="create_event_menue">Create an event <hr></li>
+        <li id="book_event_menue" class="active side-menue">Booked event <hr></li>
+        <li id="created_event_menue" class="side-menue">Created event <hr></li>
+        <li id="create_event_menue" class="side-menue">Create an event <hr></li>
       </ul>
     </nav>
     
     <div class="content">
       <div class="user-header">
-        <h2 class="section-title">
+        <h2 id="section-title">
           My Booked Events
         </h2>
       </div>
-      <div class="filter-events">
-        <select class="custom-select" name="events" id="select-group">
-          <option selected = 'selected'>Filter events</option>
-          <option value="today">Today</option>
-          <option value="future events">Future events</option>
-          <option value="past events">Past events</option>
-        </select>
-      </div>
-        <div class="hidden" id="booked-events">
+      
+        <div id="booked-events">
+          
+          {% include 'filter.html' %}
+          {% for bookings in bookedEvents %}
+            <div class="events-list">
+              <div class="event-img">
+                  {% if bookings.event.imageUrl != '' %}
+                    <img src="{{bookings.event.imageUrl}}" alt="event image">
+                  {% else %}
+                    <img src="{% static 'images/placeholder.png' %}" alt="event image">
+                {% endif %}
+              </div>
+              <div class="event-info">
+                  <a href="http://">
+                    <h4>{{bookings.event.eventName}}</h4>
+                    <p>{{bookings.event.getSummary}}</p>
+                  </a>
+                  <p><span>12-05-2020</span> | <span>13 attendees</span></p>
+                  <button class="btn-danger cancel-btn" data-eventId = '{{event.id}}'>Cancel event</button>
+              </div>
+            </div>
+            <hr>
+          {% endfor %}
 
-          <div class="events-list">
-            <div class="event-img">
-                <img src="{% static 'images/placeholder.png' %}" alt="event image">
+        </div>
+
+        <div id="created-events" class="hidden">
+
+          {% include 'filter.html' %}
+          {% for event in createdEvents %}
+            <div class="events-list">
+              <div class="event-img">
+                  {% if event.imageUrl != '' %}
+                    <img src="{{event.imageUrl}}" alt="event image">
+                  {% else %}
+                    <img src="{% static 'images/placeholder.png' %}" alt="event image">
+                {% endif %}
+              </div>
+              <div class="event-info">
+                  <a href="http://">
+                    <h4>{{event.eventName}}</h4>
+                    <p>{{event.getSummary}}</p>
+                  </a>
+                  <p><span>12-05-2020</span> | <span>13 attendees</span></p>
+                  <button class="btn-success edit-btn">Edit events</button>
+                  <button class="btn-danger delete-btn">Delete events</button>
+              </div>
             </div>
-            <div class="event-info">
-                <a href="http://">
-                  <h4>Javascript Meetup</h4>
-                  <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam....</p>
-                </a>
-                <p><span>12-05-2020</span> | <span>13 attendees</span></p>
-                <button class="btn-danger attend-btn">Cancel event</button>
-            </div>
-          </div>
-        <hr>
+            <hr>
+          {% endfor %}
+
+        </div>
+
+        <div id="create-events" class="hidden">
+
+          <div class="container form-container create-event">
+            <form class="form" action="{% url 'user_event' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ createEventForm.as_p }}
+                <input type="submit" value="Create Form" class="btn-success">
+
+                <strong>{{ createEventForm.errors }}</strong>
+            </form>
+        </div>
 
         </div>
     </div>

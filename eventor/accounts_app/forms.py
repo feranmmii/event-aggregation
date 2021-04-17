@@ -1,4 +1,4 @@
-from django import forms
+from django.forms import Form, ModelForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
@@ -37,5 +37,4 @@ class UserLoginForm(AuthenticationForm):
 
         self.fields['password'].help_text = ''
         self.fields['password'].widget.attrs.update({'class':'form-control', 'placeholder':'Enter username'})
-
  

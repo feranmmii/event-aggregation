@@ -28,12 +28,12 @@
                         {% endif %}
                     </div>
                     <div class="event-info">
-                        <a href="http://">
+                        <a href="{% url 'event_detail' event.id %}">
                             <h4>{{event.eventName}}</h4>
-                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam....</p>
+                            <p>{{event.getSummary}}</p>
                             <p><span>{{event.startDate}}</span> | <span>13 attendees</span></p>
                         </a>
-                        <button class="btn-success attend-btn">Attend event</button>
+                        <button class="btn-success attend-btn" data-event='{{event.id}}'>Attend event</button>
                     </div>
                 </div>
                 <hr>
