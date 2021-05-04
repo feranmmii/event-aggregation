@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.http import HttpResponse, HttpResponseRedirect
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.models import auth
 #from django.urls import reverse_lazy
 #from django.views.generic import CreateView
 from .forms import UserProfileForm, UserLoginForm
@@ -25,17 +25,21 @@ def signup_view(request):
 
 def login_view(request):
     if request.method == 'POST':
-        form = AuthenticationForm(data=request.POST )
+        form = UserLoginForm(data=request.POST )
         if form.is_valid():
             form.save()
             #return HttpResponse('<h1>Yep works</h1>')
         else:
             return HttpResponse('<h1>Yep Error</h1>')
     else:
-        form = AuthenticationForm()
+        form = UserLoginForm()
         context={'form':form}
         return render(request, 'registration/login.html', context)
 
+
+def logout_view(request):
+    auth.logout(request)
+    return redirect('/search_events/')
 
 def forgot_password_page_view(request):
     context = {}

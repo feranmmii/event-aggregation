@@ -28,7 +28,11 @@
                             </span>
                             {{event.address}}
                     </p>
-                    <button class="btn-success attend-btn">Attend event</button>
+                    {% if event.isBooked %}
+                            <button class="btn btn-success attend-btn deactivate-button" data-event='{{event.id}}' disabled>Event booked</button>
+                    {% else %}
+                            <button class=" btn btn-success attend-btn" data-event='{{event.id}}'>Attend event</button>
+                    {% endif %}
                 </div>
             </div>
 
