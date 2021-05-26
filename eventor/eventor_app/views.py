@@ -7,6 +7,7 @@ from django.http import JsonResponse
 import json
 from django.core.mail import send_mail
 from .filters import EventFilter, BookedEventFilter
+from django.contrib.auth.decorators import login_required
 
 
 class EventsViewSet(viewsets.ModelViewSet):
@@ -33,7 +34,7 @@ def event_details_view(request, id):
     context['event'] = models.Events.objects.get(id=id)
     return render(request, 'event_details.html', context)
 
-
+@login_required(login_url='/accounts/login/')
 def book_event_view(request):
     if request.user.is_authenticated:
         data = json.loads(request.body)
@@ -67,6 +68,7 @@ def search_event_page_view(request):
         return render(request, 'search_page.html', context)
 
 
+@login_required(login_url='/accounts/login/')
 def update_event_page_view(request, id):
     event = models.Events.objects.get(id = id)
     form = forms.CreateEventForm(instance=event)
@@ -79,6 +81,7 @@ def update_event_page_view(request, id):
     return render(request, 'update_event_page.html', context)
 
 
+@login_required(login_url='/accounts/login/')
 def created_event_page_view(request):
     currentUser = request.user
     createdEvents = models.Events.objects.filter(organizer=currentUser)
@@ -92,6 +95,7 @@ def created_event_page_view(request):
     return render(request, 'my_events.html', context)
 
 
+@login_required(login_url='/accounts/login/')
 def delete_event_view(request):
     data = json.loads(request.body)
     if data['action'] == 'delete_booking':
@@ -122,6 +126,7 @@ def delete_event_view(request):
         return JsonResponse('Event was removed successfully', safe=False)
 
 
+@login_required(login_url='/accounts/login/')
 def booked_event_page_view(request):
     currentUser = request.user
     bookedEvents = models.BookedEvent.objects.filter(user=currentUser)
@@ -134,6 +139,7 @@ def booked_event_page_view(request):
     return render(request, 'booked_events.html', context)
 
 
+@login_required(login_url='/accounts/login/')
 def create_event_page_view(request):
     currentUser = request.user
     initialUser = {'organizer': currentUser}

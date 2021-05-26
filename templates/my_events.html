@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static%}
+{% load bootstrap4 %}
+
+
+{% block content %}
+
+<div id="created-events" class="container">
+    <div class="event-filter">
+        <form class="form-inline" method = 'GET'>
+            {% bootstrap_form filter.form %}
+            <button class = 'btn btn-primary'>Filter</button>
+        </form>
+
+    </div>
+
+          {% for event in createdEvents %}
+            <div class="events-list">
+              <div class="event-img">
+                  {% if event.imageUrl != '' %}
+                    <img src="{{event.imageUrl}}" alt="event image">
+                  {% else %}
+                    <img src="{% static 'images/placeholder.png' %}" alt="event image">
+                {% endif %}
+              </div>
+              <div class="event-info">
+
+                  <h4>{{event.eventName}}</h4>
+                  <p>{{event.getSummary}}</p>
+                  <p><span>{{event.startDate}}</span> | <span>13 attendees</span></p>
+                  <a class="btn btn-success" data-event="{{event.id}}" data-action="edit" href="{% url 'update_events' event.id%}">Edit events</a>
+                  <a class="btn btn-danger delete-btn created-event" data-event="{{event.id}}" data-action="delete">Delete events</a>
+
+
+              </div>
+            </div>
+            <hr>
+          {% endfor %}
+
+        </div>
+
+        <!-- Custom javascript -->
+        <script src="{% static 'javascript/my_events.js' %}"></script>
+
+{% endblock %}

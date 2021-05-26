@@ -4,25 +4,24 @@ for (i = 0; i < events_list.length; i++){
     events_list[i].addEventListener('click', function(){
         eventId = this.dataset.event
 
-        if (isAuthenticated == true){
+        if (isAuthenticated == 'True'){
             console.log('user is logged in')
-            bookEvent(eventId)
-            events_list[i].classList.add('deactivate-button')
-            deactivateButtonByClass('.deactivate-button')
+            json_data_transfer(eventId, '/book_event_view', action = 'make_booking')
+            //this.classList.add('deactivate-button')
+            //deactivateButtonByClass('.deactivate-button')
         }
         else{
+            console.log(isAuthenticated)
             alert('You must be signed in')
 
         }
     })
-
-
 }
 
+
 // Json data transfer for booking events
-function bookEvent(eventId){
+function json_data_transfer(eventId, url, action = ''){
     console.log('loading details page')
-    const url = '/book_event_view'
     console.log(url)
     console.log(eventId)
 
@@ -32,17 +31,17 @@ function bookEvent(eventId){
             'Content-Type':'application/json',
             'X-CSRFToken': csrftoken
         },
-        body: JSON.stringify({'productId': eventId})
+        body: JSON.stringify({'id': eventId, 'action':action})
     })
     .then((res) =>{
         if (res.ok){
+            console.log('added to ', action)
+            location.reload()
             return res.json()
         }
-    })
-    .then((data) =>{
-
-        alert(data)
-
+        else{
+            console.log('Error with response')
+        }
     })
     
 }
@@ -53,6 +52,7 @@ function deactivateButtonByClass(class_name){
             events_name[i].disabled = true
         }
     }
+
 
 // my events page
 section_title = document.querySelector('#section-title')
@@ -65,7 +65,7 @@ booked_event_content = document.querySelector('#booked-events')
 created_event_content = document.querySelector('#created-events')
 create_event_content = document.querySelector('#create-events')
 
-booked_event.addEventListener('click', function(){
+/*booked_event.addEventListener('click', function(){
     if (created_event.classList.contains('active')){
         created_event.classList.remove('active')
         created_event_content.classList.add('hidden')
@@ -121,4 +121,25 @@ create_event_btn.addEventListener('click', function(){
         booked_event.classList.remove('active')
         booked_event_content.classList.add('hidden')
     }
-})
+})*/
+
+
+// add event listeners to button
+const booked_events = document.querySelectorAll('.cancel-btn')
+
+for (i = 0; i < booked_events.length; i++){
+    booked_events[i].addEventListener('click', function(){
+        eventId = this.dataset.event
+
+        if (isAuthenticated == 'True'){
+            console.log('user is logged in')
+            json_data_transfer(eventId, '/book_event_view', action = 'cancel_booking')
+            console.log(this)
+        }
+        else{
+            console.log(isAuthenticated)
+            alert('You must be signed in')
+
+        }
+    })
+}

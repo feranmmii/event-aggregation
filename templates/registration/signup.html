@@ -1,14 +1,18 @@
 {% extends 'base.html' %}
+{% load bootstrap4 %}
 
 {% block content%}
 
-    <div class="container form-container">
-        <form class="form" action="{% url 'signup' %}" method="POST">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value="Signup">
-        </form>
+    <div class="vertical-align">
+        <div class="container form-container authentication">
+            <form class="form" action="{% url 'signup' %}" method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Signup">
+            </form>
+        </div>
     </div>
+
 
 {% endblock %}
 

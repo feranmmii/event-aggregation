@@ -1,10 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'base.html' %}
+{% load static%}
+{% load bootstrap4 %}
+
+
+
+{% block content%}
+    <div class="container">
+
+        <div class="event-filter">
+            <form class="form-inline" method = 'GET'>
+                {% bootstrap_form filter.form %}
+                <button class = 'btn btn-primary'>Filter</button>
+            </form>
+
+        </div>
+
+          {% for bookings in bookedEvents %}
+            <div class="events-list">
+              <div class="event-img">
+                  {% if bookings.event.imageUrl != '' %}
+                    <img src="{{bookings.event.imageUrl}}" alt="event image">
+                  {% else %}
+                    <img src="{% static 'images/placeholder.png' %}" alt="event image">
+                {% endif %}
+              </div>
+              <div class="event-info">
+                  <a href="{% url 'event_detail' bookings.event.id %}">
+                    <h4>{{bookings.event.eventName}}</h4>
+                    <p>{{bookings.event.getSummary}}</p>
+                  </a>
+                  <p><span>{{bookings.event.startDate}}</span> | <span>13 attendees</span></p>
+                  <button class="btn btn-danger cancel-btn" data-event = "{{bookings.event.id}}" >Cancel event</button>
+              </div>
+            </div>
+            <hr>
+          {% endfor %}
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

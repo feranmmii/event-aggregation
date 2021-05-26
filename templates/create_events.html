@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static%}
+
+
+
+{% block content%}
+
+    <div id="create-events" class="container">
+          <div class="container form-container create-event">
+            <form class="form" action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ createEventForm.as_p }}
+                <strong>{{ createEventForm.errors }}</strong>
+                <input type="submit" value="Create Form" class="btn btn-success submit-btn">
+
+                
+            </form>
+        </div>
+    </div>
+
+
+{% endblock %}

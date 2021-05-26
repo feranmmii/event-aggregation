@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    {% if search_result %}
+        <center>
+            <h1> Search results for {{search_result}}</h1>
+        </center>
+
+        <section class="events-listings">
+            <div class="container">
+                <hr>
+                {% for event in events %}
+                    <div class="events-list">
+                        <div class="event-img">
+                            {% if event.imageUrl != '' %}
+                                <img src="{{event.imageUrl}}" alt="event image">
+                            {% else %}
+                                <img src="{% static 'images/placeholder.png' %}" alt="event image">
+                            {% endif %}
+                        </div>
+                        <div class="event-info">
+                            <a href="{% url 'event_detail' event.id %}">
+                                <h4>{{event.eventName}}</h4>
+                                <p>{{event.getSummary}}</p>
+                                <p><span>{{event.startDate}}</span> | <span>13 attendees</span></p>
+                            </a>
+                            {% if request.user == event.organizer %}
+                                <a class="btn btn-success" data-event="{{event.id}}" data-action="edit" href="{% url 'update_events' event.id%}">Edit events</a>
+                                <a class="btn btn-danger delete-btn created-event" data-event="{{event.id}}" data-action="delete">Delete events</a>  
+                            {% else %}
+                                <button class="btn btn-success attend-btn" data-event='{{event.id}}'>Attend event</button>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <hr>
+                {% endfor %}
+
+            </div>
+        </section>
+
+
+    {% else %}
+        <center>
+            <h1>Please enter a valid search result</h1>
+        </center>
+    {% endif %}
+
+
+{% endblock %}

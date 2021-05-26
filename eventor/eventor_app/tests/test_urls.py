@@ -21,9 +21,9 @@ class Test_urls(SimpleTestCase):
         self.assertEquals(resolve(url).func, create_event_page_view)
 
 
-    # def test_event_details_view_url_resolves(self):
-    #     url = reverse('event_detail')
-    #     self.assertEquals(resolve(url).func, event_details_view)
+    def test_event_details_view_url_resolves(self):
+        url = reverse('event_detail', args=['3'])
+        self.assertEquals(resolve(url).func, event_details_view)
 
     def test_book_event_view_url_resolves(self):
         url = reverse('book_event_view')

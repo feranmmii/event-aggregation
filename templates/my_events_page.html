@@ -4,23 +4,23 @@
 {% block content %}
   <div class="events-body">
     <nav class="side-nav">
-     
+
       <ul>
         <li id="book_event_menue" class="active side-menue">Booked event <hr></li>
         <li id="created_event_menue" class="side-menue">Created event <hr></li>
         <li id="create_event_menue" class="side-menue">Create an event <hr></li>
       </ul>
     </nav>
-    
+
     <div class="content">
       <div class="user-header">
         <h2 id="section-title">
           My Booked Events
         </h2>
       </div>
-      
+
         <div id="booked-events">
-          
+
           {% include 'filter.html' %}
           {% for bookings in bookedEvents %}
             <div class="events-list">
@@ -32,12 +32,12 @@
                 {% endif %}
               </div>
               <div class="event-info">
-                  <a href="http://">
+                  <a href="{% url 'event_detail' bookings.event.id %}">
                     <h4>{{bookings.event.eventName}}</h4>
                     <p>{{bookings.event.getSummary}}</p>
                   </a>
                   <p><span>12-05-2020</span> | <span>13 attendees</span></p>
-                  <button class="btn-danger cancel-btn" data-eventId = '{{event.id}}'>Cancel event</button>
+                  <button class="btn btn-danger cancel-btn" data-event = "{{bookings.event.id}}" >Cancel event</button>
               </div>
             </div>
             <hr>
@@ -45,6 +45,8 @@
 
         </div>
 
+
+        <!-- Created Events -->
         <div id="created-events" class="hidden">
 
           {% include 'filter.html' %}
@@ -58,13 +60,16 @@
                 {% endif %}
               </div>
               <div class="event-info">
-                  <a href="http://">
+
+                  <form method="POST" onsubmit="confirm_event_delete()">
                     <h4>{{event.eventName}}</h4>
                     <p>{{event.getSummary}}</p>
-                  </a>
-                  <p><span>12-05-2020</span> | <span>13 attendees</span></p>
-                  <button class="btn-success edit-btn">Edit events</button>
-                  <button class="btn-danger delete-btn">Delete events</button>
+
+                      <p><span>12-05-2020</span> | <span>13 attendees</span></p>
+                      <a class="btn btn-success" data-event="{{event.id}}" data-action="edit" href="{% url 'update_events' event.id%}">Edit events</a>
+                      <input type="submit" class="btn btn-danger delete-btn" data-event="{{event.id}}" data-action="delete" value="Delete events">
+                  </form>
+
               </div>
             </div>
             <hr>
@@ -72,13 +77,15 @@
 
         </div>
 
+
+        <!-- Create Events Form -->
         <div id="create-events" class="hidden">
 
           <div class="container form-container create-event">
             <form class="form" action="{% url 'user_event' %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ createEventForm.as_p }}
-                <input type="submit" value="Create Form" class="btn-success">
+                <input type="submit" value="Create Form" class="btn btn-success submit-btn">
 
                 <strong>{{ createEventForm.errors }}</strong>
             </form>

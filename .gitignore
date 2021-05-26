@@ -3,6 +3,8 @@ __pycache__
 eventor/eventor_app/__pycache__
 eventor/eventor_app/migrations
 eventor/eventor_app/__init__.py
+eventor/eventor_app/tests/__init__.py
+static/images/events
 Lib
 Scripts
 pyvenv.cfg

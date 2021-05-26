@@ -7,6 +7,26 @@
     border-radius: 0 5px 5px 0;
 }
 
+.dropdown{
+    position: relative;
+    pointer: cursor;
+}
+
+.sub-menue{
+    background-color: #333;
+    padding:auto;
+    width: 200px;
+    border-radius: 10px;
+    list-style: none;
+    display: none;
+}
+
+.dropdown:hover .sub-menue{
+    display: block;
+    position: absolute;
+    z-index: 1;
+}
+
 .hme-header{
     width: 100%;
     height: 60vh;
@@ -61,6 +81,17 @@
     display: flex;
     justify-content: space-between;
     margin: 4em 0;  
+}
+
+.event-description{
+    width: 70%;
+    margin: auto;
+    text-align: justify;
+    line-height: 1.7em;
+    padding: 2em;
+    margin-bottom: 5em;
+    border-radius: 15px;
+    box-shadow: 2px 4px 10px #334;
 }
 
 .detail-images img{
@@ -130,16 +161,52 @@
     margin: 3em 0;
 }
 
+.submit-btn{
+    margin: 3em auto 0 auto;
+    width:40%;
+}
+
+/* my events */
+.event-filter .form-inline .is-valid{
+    margin: .5em;
+}
+
+.event-filter .form-inline .is-valid input{
+    width: 12em;
+}
+
+.event-filter .form-inline{
+    margin 5em 0 10em 0
+}
+
+
+/* login and sign up */
+.authentication{
+    width: 25%;
+}
+
+.vertical-align{
+    display: flex;
+    height:60vh;
+    align-items:center;
+}
 
 
 
 
 
-
-
+/* Responsive design */
 @media screen and (max-width: 750px) {
     .head-call-to-act{
         font-size: 0.8em;
+    }
+
+    .authentication{
+        width: 80%;
+    }
+
+    .head-content{
+        flex-direction:column;
     }
 }
 
@@ -148,4 +215,6 @@
     .head-call-to-act{
         font-size: 0.5em;
     }
+
+
 }

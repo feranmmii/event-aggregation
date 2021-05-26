@@ -41,6 +41,8 @@
     }
     const csrftoken = getCookie('csrftoken');
 
+    
+
     </script>
 </head>
 <body>
@@ -55,24 +57,45 @@
       
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-          <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-0" type="search" placeholder="Search" aria-label="Search" id="search-input">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="search-btn">Search</button>
+          <form class="form-inline my-2 my-lg-0" action="{% url 'search_events' %}" method="POST">
+              {% csrf_token %}
+            <input class="form-control mr-sm-0" type="search" placeholder="Search" aria-label="Search" id="search-input" name="search">
+            <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit" id="search-btn">Search</button>
           </form>
 
-          <ul class="navbar-nav ml-auto">
+
+            {% if not request.user.is_authenticated %}
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'signup' %}">Sign up</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'login' %}">Login</a>
+                    </li>
+                 </ul>
+            {% else %}
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown">
+                      <a class="nav-link">Events</a>
+                        <ul class="sub-menue">
+                            <li ><a class="nav-link" href="{% url 'booked_events' %}">Booked event</a></li>
+                            <li ><a class="nav-link" href="{% url 'user_events' %}">My events</a></li>
+                            <li ><a class="nav-link" href="{% url 'create_event' %}">Create event</a></li>
+
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'logout' %}">sign out</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <p class="nav-link">Hello {{request.user.username}}</p>
+                    </li>
+                 </ul>
+            {% endif %}
             
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'user_event' %}">Events</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'signup' %}">Sign up</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'login' %}">Login</a>
-            </li>
-            
-          </ul>
+
    
         </div>
       </nav>
@@ -82,7 +105,12 @@
         {% block content%}
         {% endblock %}
     </main>
-    <footer></footer>
+    <footer>
+        {% if 2 == 1 %}
+                footer things
+        {% endif %}
+
+    </footer>
     
 
     <!-- Bootstrap Javascript -->

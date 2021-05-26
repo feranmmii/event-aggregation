@@ -15,11 +15,14 @@
                 </div>
 
                 <div class="head-info">
+                    <h2>
+                        {{event.eventName}}
+                    </h2>
                     <p>
                         <span class="material-icons-outlined">
                         Schedule:
                         </span>
-                        <p><span>{{event.startDate}}</span> <!-- | <span>13 attendees</span></p> -->
+                        <span>{{event.startDate}}</span> <!-- | <span>13 attendees</span></p> -->
                     </p>
 
                     <p>
@@ -28,7 +31,7 @@
                             </span>
                             {{event.address}}
                     </p>
-                    {% if event.isBooked %}
+                    {% if event.isBooked and request.user.is_authenticated %}
                             <button class="btn btn-success attend-btn deactivate-button" data-event='{{event.id}}' disabled>Event booked</button>
                     {% else %}
                             <button class=" btn btn-success attend-btn" data-event='{{event.id}}'>Attend event</button>

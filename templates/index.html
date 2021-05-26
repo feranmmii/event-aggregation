@@ -8,7 +8,7 @@
                 <h1>
                     Dive in! There are so many things to do on Eventor
                 </h1>
-                <button class="btn">View events near you</button>
+                <a class="btn btn-info" href="#event-container">View events near you</a>
             </div>
             <div class="col-md-6 head-img">
                 <img src="{% static 'images/girl.png' %}" alt="">
@@ -16,7 +16,7 @@
     </header>
 
     <section class="events-listings">
-        <div class="container">
+        <div class="container" id="event-container">
             <hr>
             {% for event in events %}
                 <div class="events-list">
@@ -33,51 +33,17 @@
                             <p>{{event.getSummary}}</p>
                             <p><span>{{event.startDate}}</span> | <span>13 attendees</span></p>
                         </a>
-                        <button class="btn-success attend-btn" data-event='{{event.id}}'>Attend event</button>
+                        {% if event.isBooked and request.user.is_authenticated %}
+                            <button class="btn btn-success attend-btn deactivate-button" data-event='{{event.id}}' disabled>Event booked</button>
+                        {% else %}
+                            <button class=" btn btn-success attend-btn" data-event='{{event.id}}'>Attend event</button>
+                        {% endif %}
+
+
                     </div>
                 </div>
                 <hr>
             {% endfor %}
-
-            <!-- <div class="events-list">
-                <div class="event-img">
-                    <img src="{% static 'images/placeholder.png' %}" alt="event image">
-                </div>
-                <div class="event-info">
-                    <h4>Javascript Meetup</h4>
-                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam....</p>
-                    <p><span>12-05-2020</span> | <span>13 attendees</span></p>
-                    <button class="btn-success attend-btn">Attend event</button>
-                </div>
-            </div>
-            <hr>
-
-            <div class="events-list">
-                <div class="event-img">
-                    <img src="{% static 'images/placeholder.png' %}" alt="event image">
-                </div>
-                <div class="event-info">
-                    <h4>Javascript Meetup</h4>
-                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam....</p>
-                    <p><span>12-05-2020</span> | <span>13 attendees</span></p>
-                    <button class="btn-success attend-btn">Attend event</button>
-                </div>
-            </div>
-            <hr>
-
-            <div class="events-list">
-                <div class="event-img">
-                    <img src="{% static 'images/placeholder.png' %}" alt="event image">
-                </div>
-                <div class="event-info">
-                    <h4>Javascript Meetup</h4>
-                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam....</p>
-                    <p><span>12-05-2020</span> | <span>13 attendees</span></p>
-                    <button class="btn-success attend-btn">Attend event</button>
-                </div>
-            </div>
-            <hr>
- -->
             
         </div>
     </section>
