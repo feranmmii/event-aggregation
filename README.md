@@ -1,1 +1,1 @@
-# event-aggregation
+# event-aggregation webapp
